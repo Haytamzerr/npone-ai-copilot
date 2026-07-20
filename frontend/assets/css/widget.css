@@ -1,0 +1,239 @@
+/* ==========================================================================
+   N+ONE AI Copilot — Chat Widget Styles
+   Design language: glassmorphism, dark navy/electric-blue palette matching
+   N+ONE's datacenter/tech branding, ChatGPT-inspired conversation layout.
+   ========================================================================== */
+
+:root {
+  --npo-primary: #0057ff;
+  --npo-primary-dark: #0041c2;
+  --npo-accent: #00d4ff;
+  --npo-bg-dark: #0b1220;
+  --npo-bg-glass-dark: rgba(15, 23, 42, 0.72);
+  --npo-bg-glass-light: rgba(255, 255, 255, 0.75);
+  --npo-text-dark: #e8edf7;
+  --npo-text-light: #10182b;
+  --npo-border-dark: rgba(255, 255, 255, 0.12);
+  --npo-border-light: rgba(10, 20, 40, 0.10);
+  --npo-radius: 18px;
+  --npo-shadow: 0 20px 60px rgba(0, 10, 40, 0.35);
+  --npo-font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.npo-widget-root {
+  font-family: var(--npo-font);
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+}
+
+/* --- Floating Action Button --- */
+.npo-fab {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--npo-primary), var(--npo-accent));
+  box-shadow: 0 8px 24px rgba(0, 87, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.npo-fab:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(0, 87, 255, 0.55); }
+.npo-fab svg { width: 28px; height: 28px; fill: #fff; }
+.npo-fab .npo-fab-badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  width: 14px; height: 14px;
+  background: #22c55e;
+  border-radius: 50%;
+  border: 2px solid var(--npo-bg-dark);
+}
+
+/* --- Chat Panel --- */
+.npo-panel {
+  position: absolute;
+  bottom: 78px;
+  right: 0;
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  height: 620px;
+  max-height: calc(100vh - 140px);
+  border-radius: var(--npo-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--npo-shadow);
+  border: 1px solid var(--npo-border-dark);
+  background: var(--npo-bg-glass-dark);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  transform-origin: bottom right;
+  transform: scale(0.85) translateY(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(.2,.9,.3,1.2), opacity 0.22s ease;
+}
+.npo-panel.npo-open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.npo-widget-root[data-theme="light"] .npo-panel {
+  background: var(--npo-bg-glass-light);
+  border-color: var(--npo-border-light);
+  color: var(--npo-text-light);
+}
+.npo-panel { color: var(--npo-text-dark); }
+
+/* --- Header --- */
+.npo-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(120deg, rgba(0,87,255,0.35), rgba(0,212,255,0.15));
+  border-bottom: 1px solid var(--npo-border-dark);
+}
+.npo-header .npo-logo-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #22c55e; box-shadow: 0 0 8px #22c55e;
+}
+.npo-header h3 { margin: 0; font-size: 15px; font-weight: 600; }
+.npo-header p { margin: 0; font-size: 11.5px; opacity: 0.7; }
+.npo-header-actions { margin-left: auto; display: flex; gap: 6px; }
+.npo-icon-btn {
+  background: transparent; border: none; cursor: pointer; padding: 6px;
+  border-radius: 8px; display: flex; opacity: 0.85; transition: background .15s, opacity .15s;
+}
+.npo-icon-btn:hover { background: rgba(255,255,255,0.12); opacity: 1; }
+.npo-icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+.npo-lang-select {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--npo-border-dark);
+  color: inherit;
+  border-radius: 8px;
+  font-size: 12px;
+  padding: 4px 6px;
+}
+
+/* --- Messages --- */
+.npo-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-behavior: smooth;
+}
+.npo-messages::-webkit-scrollbar { width: 6px; }
+.npo-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 6px; }
+
+.npo-msg { display: flex; gap: 10px; max-width: 92%; }
+.npo-msg.npo-user { align-self: flex-end; flex-direction: row-reverse; }
+.npo-avatar {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, var(--npo-primary), var(--npo-accent));
+}
+.npo-msg.npo-user .npo-avatar { background: #334155; }
+
+.npo-bubble {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--npo-border-dark);
+}
+.npo-msg.npo-user .npo-bubble {
+  background: linear-gradient(135deg, var(--npo-primary), var(--npo-primary-dark));
+  border: none;
+  color: #fff;
+}
+.npo-bubble pre {
+  background: rgba(0,0,0,0.35);
+  padding: 10px; border-radius: 8px; overflow-x: auto; font-size: 12px;
+  position: relative;
+}
+.npo-bubble code { font-family: "Fira Code", monospace; }
+.npo-copy-btn {
+  position: absolute; top: 6px; right: 6px;
+  font-size: 10px; padding: 3px 7px; border-radius: 6px;
+  background: rgba(255,255,255,0.12); border: none; color: #fff; cursor: pointer;
+}
+
+.npo-sources {
+  margin-top: 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.npo-source-chip {
+  font-size: 11px; padding: 4px 8px; border-radius: 8px;
+  background: rgba(0, 212, 255, 0.12); border: 1px solid rgba(0, 212, 255, 0.3);
+  text-decoration: none; color: inherit; opacity: 0.9;
+}
+
+.npo-feedback { display: flex; gap: 6px; margin-top: 6px; }
+.npo-feedback button {
+  background: transparent; border: 1px solid var(--npo-border-dark);
+  border-radius: 8px; padding: 3px 7px; cursor: pointer; font-size: 12px; color: inherit; opacity: .7;
+}
+.npo-feedback button:hover { opacity: 1; }
+.npo-feedback button.npo-active { background: rgba(0,87,255,0.25); opacity: 1; }
+
+/* --- Typing indicator --- */
+.npo-typing { display: flex; gap: 4px; padding: 10px 14px; }
+.npo-typing span {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--npo-accent);
+  animation: npo-bounce 1.2s infinite ease-in-out;
+}
+.npo-typing span:nth-child(2) { animation-delay: 0.15s; }
+.npo-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes npo-bounce { 0%, 60%, 100% { transform: translateY(0); opacity: .5;} 30% { transform: translateY(-5px); opacity: 1; } }
+
+/* --- Input area --- */
+.npo-input-area {
+  padding: 12px;
+  border-top: 1px solid var(--npo-border-dark);
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+.npo-input-area textarea {
+  flex: 1;
+  resize: none;
+  max-height: 90px;
+  border-radius: 12px;
+  border: 1px solid var(--npo-border-dark);
+  background: rgba(255,255,255,0.06);
+  color: inherit;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  font-family: inherit;
+  outline: none;
+}
+.npo-send-btn {
+  width: 38px; height: 38px; border-radius: 10px; border: none; cursor: pointer;
+  background: linear-gradient(135deg, var(--npo-primary), var(--npo-accent));
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .15s;
+}
+.npo-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.npo-send-btn svg { width: 17px; height: 17px; fill: #fff; }
+
+.npo-footer-note {
+  text-align: center; font-size: 10px; opacity: 0.55; padding: 6px 0 10px;
+}
+
+/* --- Mobile --- */
+@media (max-width: 480px) {
+  .npo-panel { width: calc(100vw - 20px); right: -12px; height: 78vh; }
+  .npo-widget-root { bottom: 14px; right: 14px; }
+}

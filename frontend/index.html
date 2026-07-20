@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>N+ONE DATACENTERS — AI Copilot Widget Demo</title>
+<link rel="stylesheet" href="assets/css/widget.css" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(circle at top left, #101c34, #060a14 70%);
+    color: #e8edf7; min-height: 100vh;
+  }
+  .hero { max-width: 780px; margin: 0 auto; padding: 90px 24px 40px; text-align: center; }
+  .hero h1 { font-size: 2.2rem; margin-bottom: 10px; }
+  .hero p { opacity: 0.75; line-height: 1.6; }
+  .badge {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: rgba(0,87,255,0.15); border: 1px solid rgba(0,87,255,0.4);
+    font-size: 12px; letter-spacing: .04em; margin-bottom: 18px;
+  }
+  .hint { margin-top: 40px; opacity: 0.5; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <span class="badge">DEMO — N+ONE AI CUSTOMER COPILOT</span>
+    <h1>This page simulates the N+ONE DATACENTERS website</h1>
+    <p>
+      Click the floating button in the bottom-right corner to open the AI assistant.
+      It answers only from N+ONE's official knowledge base (RAG pipeline), in English,
+      French, or Arabic.
+    </p>
+    <p class="hint">
+      In production, this widget is embedded on the real site by inserting the &lt;link&gt;
+      and &lt;script&gt; tags below just before &lt;/body&gt;.
+    </p>
+  </div>
+
+  <!-- ============================================================
+       PRODUCTION EMBED SNIPPET (copy onto the WordPress site):
+
+       <link rel="stylesheet" href="https://cdn.nplusone.africa/copilot/widget.css">
+       <script src="https://cdn.nplusone.africa/copilot/widget.js"
+               data-api-base="https://api-copilot.nplusone.africa"></script>
+     ============================================================= -->
+  <script src="assets/js/widget.js" data-api-base="http://localhost:8000"></script>
+</body>
+</html>

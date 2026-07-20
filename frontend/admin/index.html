@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>N+ONE AI Copilot — Admin</title>
+<link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+
+  <!-- ================= LOGIN SCREEN ================= -->
+  <div class="npo-login-screen" id="loginScreen">
+    <div class="npo-login-card">
+      <div class="npo-login-logo">N1</div>
+      <h1>Console d'administration</h1>
+      <p>N+ONE AI Customer Copilot</p>
+      <div class="npo-login-error" id="loginError">Identifiants invalides. Vérifiez votre nom d'utilisateur et mot de passe.</div>
+      <form id="loginForm">
+        <div class="npo-field">
+          <label for="username">Nom d'utilisateur</label>
+          <input type="text" id="username" autocomplete="username" required />
+        </div>
+        <div class="npo-field">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" autocomplete="current-password" required />
+        </div>
+        <div class="npo-field">
+          <label for="apiBase">URL de l'API</label>
+          <input type="text" id="apiBase" value="http://localhost:8000" />
+        </div>
+        <button type="submit" class="npo-btn-primary" id="loginBtn">Se connecter</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= APP SHELL ================= -->
+  <div class="npo-app" id="app">
+    <aside class="npo-sidebar">
+      <div class="npo-brand">
+        <div class="npo-brand-dot">N1</div>
+        <div>
+          <h2>N+ONE Copilot</h2>
+          <p>Console admin</p>
+        </div>
+      </div>
+      <nav class="npo-nav">
+        <button data-view="overview" class="npo-active">📊 Vue d'ensemble</button>
+        <button data-view="logs">🧾 Logs</button>
+        <button data-view="kb">📚 Base de connaissances</button>
+      </nav>
+      <div class="npo-sidebar-footer">
+        Connecté en tant que <strong id="currentUser">admin</strong>
+        <br />
+        <button class="npo-logout-btn" id="logoutBtn">Se déconnecter →</button>
+      </div>
+    </aside>
+
+    <main class="npo-main">
+      <div class="npo-topbar">
+        <div>
+          <h1 id="viewTitle">Vue d'ensemble</h1>
+          <p id="viewSubtitle">Statistiques et santé du copilote IA</p>
+        </div>
+        <div class="npo-live-pill"><span class="npo-live-dot"></span> API connectée — <span id="providerLabel">—</span></div>
+      </div>
+
+      <!-- ---- Overview ---- -->
+      <section class="npo-view npo-active" id="view-overview">
+        <div class="npo-grid-stats" id="statsGrid"></div>
+
+        <div class="npo-two-col">
+          <div class="npo-panel-block">
+            <h3>Questions les plus fréquentes</h3>
+            <p class="npo-panel-sub">Top 10 des questions posées par les visiteurs</p>
+            <div id="topQuestions"></div>
+          </div>
+
+          <div class="npo-panel-block">
+            <h3>Satisfaction (feedback)</h3>
+            <p class="npo-panel-sub">Réponses jugées utiles vs non utiles</p>
+            <div class="npo-feedback-donut">
+              <svg width="120" height="120" viewBox="0 0 120 120" id="donutSvg"></svg>
+              <div class="npo-donut-legend">
+                <div><span class="npo-legend-dot" style="background:#22c55e"></span>Utile <strong id="fbPositive">0</strong></div>
+                <div><span class="npo-legend-dot" style="background:#f43f5e"></span>Pas utile <strong id="fbNegative">0</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Logs ---- -->
+      <section class="npo-view" id="view-logs">
+        <div class="npo-panel-block">
+          <h3>Journal des requêtes récentes</h3>
+          <p class="npo-panel-sub">100 dernières requêtes traitées par l'API</p>
+          <div style="overflow-x:auto">
+            <table class="npo-table" id="logsTable">
+              <thead>
+                <tr><th>Endpoint</th><th>Statut</th><th>Durée</th><th>Erreur</th><th>Horodatage</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Knowledge Base ---- -->
+      <section class="npo-view" id="view-kb">
+        <div class="npo-panel-block">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <h3>État de la base de connaissances</h3>
+              <p class="npo-panel-sub">Documents indexés dans l'index vectoriel FAISS</p>
+            </div>
+            <button class="npo-reload-btn" id="reloadKbBtn">🔄 Recharger l'index</button>
+          </div>
+          <div id="kbStatus"></div>
+          <div id="kbDocs"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
