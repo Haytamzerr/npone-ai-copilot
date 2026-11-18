@@ -7,7 +7,10 @@ Internship company: [N+ONE DATACENTERS](https://nplusone.africa/)
 
 A Retrieval-Augmented Generation (RAG) chatbot embedded on the N+ONE DATACENTERS website that
 answers visitor questions about services, datacenters, certifications, and careers — using
-**only** official company content, with no hallucination.
+**only** official company content, with guardrails against hallucination (similarity-gated
+retrieval, cited sources, refusal when the answer isn't in the knowledge base).
+
+![The chat widget on the demo page, in English](docs/widget.png)
 
 ---
 
